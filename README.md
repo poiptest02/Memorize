@@ -46,6 +46,8 @@ ai_memory_chatbot/
 ├── data/                 # 물리적 데이터 저장소 (Vector Index, Structured JSON)
 └── tests/                # 품질 검증 (의도 분류 정확도 및 기억 복원 재현율 테스트)
 
+---
+
 ## 🛠 기술 스택
 
 | 구분 | 기술 스택 | 비고 |
