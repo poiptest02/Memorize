@@ -44,7 +44,62 @@ ai_memory_chatbot/
 ├── services/             # 외부 서비스 (Vector DB, File Storage, Cache 서비스)
 ├── utils/                # 공통 유틸리티 (텍스트 정규화, 유사도 계산, 언어 감지)
 ├── data/                 # 물리적 데이터 저장소 (Vector Index, Structured JSON)
-└── tests/                # 품질 검증 (의도 분류 정확도 및 기억 복원 재현율 테스트)
+└── tests/                # 품질 검증 (의도 분류 정확도 및 기억 복원 재현율 테스트)'
+
+## 세부구조
+project-root/
+├── 📄 app.py                # [Main] 엔트리 포인트, 파이프라인 조립 및 실행
+├── 📁 config/               # [Configuration] 설정 전용 폴더
+│   ├── settings.py          # 공통 설정 (ENV, 경로, 모드)
+│   ├── llm_config.py        # Brumby 14 모델 로딩 옵션
+│   ├── memory_config.py     # 벡터 DB 및 저장소 설정
+│   └── logging_config.py    # 로그 포맷 및 레벨 설정
+├── 📁 core/                 # [Core] 시스템의 뇌, 흐름 제어
+│   ├── orchestrator.py      # 전체 워크플로우 제어 (Intent-Agent-Memory 연결)
+│   ├── intent_classifier.py # 사용자 입력 의도 분류
+│   ├── context_builder.py   # 검색된 기억의 재구성 (LLM 주입용)
+│   └── response_generator.py # 최종 프롬프트 구성 및 응답 생성
+├── 📁 memory/               # [Memory] 기억 저장 및 관리 (시스템 핵심)
+│   ├── memory_manager.py    # 메모리 통합 인터페이스 (CRUD)
+│   ├── semantic_memory.py   # 벡터 DB 연동 및 임베딩 검색
+│   ├── structured_memory.py # JSON 기반 사양 및 메타정보 저장
+│   ├── memory_schema.py     # Canonical Spec 포맷 정의 (JSON Schema)
+│   ├── visual_memory.py     # 시각적 정보 처리 및 저장
+│   └── memory_merger.py     # 중복 기억 병합 및 유사 사양 정리
+├── 📁 agents/               # [Agents] 특정 태스크 수행 서브 AI
+│   ├── base_agent.py        # 공통 LLM 호출 인터페이스
+│   ├── spec_extraction_agent.py # 사양 구조화 추출 에이전트
+│   ├── memory_query_agent.py    # 검색 쿼리 최적화 에이전트
+│   └── verification_agent.py    # 정보 검증 및 확신도 계산
+├── 📁 prompts/              # [Prompts] 프롬프트 관리 (독립적 로직)
+│   ├── intent_prompt.txt
+│   ├── spec_extraction_prompt.txt
+│   ├── memory_query_prompt.txt
+│   ├── response_prompt.txt
+│   └── verification_prompt.txt
+├── 📁 models/               # [Models] 모델 호출 래퍼
+│   ├── llm_client.py        # Brumby 14 호출 클라이언트
+│   ├── embedding_model.py   # 문장 벡터화 모델
+│   └── tokenizer.py         # 토큰 계산 및 제한 관리
+├── 📁 services/             # [Services] 외부 인프라 연결
+│   ├── vector_db_service.py # FAISS / Qdrant 연동
+│   ├── storage_service.py   # 로컬 파일 / DB 저장 서비스
+│   └── cache_service.py     # Redis 등 캐시 관리
+├── 📁 utils/                # [Utils] 공통 유틸리티
+│   ├── logger.py            # 시스템 로깅 통일
+│   ├── text_normalizer.py   # 텍스트 전처리 및 정규화
+│   ├── similarity.py        # 유사도 계산 알고리즘
+│   └── language_detector.py # 언어 감지 (한/영 혼용 대응)
+├── 📁 data/                 # [Data] 실제 데이터 저장소
+│   ├── semantic_index/      # 벡터 DB 인덱스 파일
+│   ├── structured_memory/   # 저장된 JSON 사양서들
+│   └── backups/             # 메모리 스냅샷 및 백업
+├── 📁 tests/                # [Tests] 테스트 코드
+│   ├── test_intent.py       # 의도 분류 테스트
+│   ├── test_memory_recall.py # 기억 소환 정확도 테스트
+│   └── test_spec_storage.py  # 사양 저장 로직 테스트
+├── 📄 README.md             # 아키텍처 다이어그램 및 설계 철학 문서
+└── 📄 requirements.txt      # 의존성 라이브러리 목록
 
 ---
 
