@@ -1,4 +1,4 @@
-# 🧠 Dual Memory System with Brumby 14
+# 🧠 Dual Memory System with Brumby-14B-Base
 
 > **"LLM은 사고(Reasoning)하고, 시스템은 기억(Memory)한다."** > Brumby 14 base의 강력한 추론 능력과 정형/비정형 메모리 구조를 결합한 차세대 사양 관리 시스템입니다.
 
@@ -19,7 +19,7 @@
 
 ### 1. 처리 파이프라인
 1. **Input**: 사용자 발화 진입
-2. **Intent Classifier (Brumby 14)**: 기억 저장 / 기억 조회 / 일반 대화 목적 분류
+2. **Intent Classifier (BBrumby-14B-Base)**: 기억 저장 / 기억 조회 / 일반 대화 목적 분류
 3. **Memory Manager**: 발화 성격에 따라 Semantic / Structured / Visual 메모리 분기 처리
 4. **Context Builder**: 검색된 기억 조각들을 LLM이 이해하기 쉽게 재구성
 5. **Response Generator**: Brumby 14 base를 통해 최종 답변 생성
